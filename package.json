@@ -1,0 +1,14 @@
+{
+  "name": "react-project",
+  "version": "1.0.0",
+  "description": "My first react Project, I will be creating a video game site that will show the most popular games and their rating, developers, cost, unit sales, and steam numbers among other things.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ian Voltaire",
+  "license": "ISC",
+  "devDependencies": {
+    "vite": "^4.4.11"
+  }
+}
