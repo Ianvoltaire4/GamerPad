@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
@@ -7,6 +7,23 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 
 
 const Ratings = () => {
+    const [rating, setRating]=useState('')
+    const [count, setCount]=useState(0)
+
+    const increaseHeight=()=>{
+        if(count < 100) {
+            setCount(count + 1)
+        }else{
+            console.log('No more Skill points')
+        }  
+    };
+    const decreaseHeight=()=>{
+        if(count < 100) {
+            setCount(count - 1)
+        }
+    }
+
+
   return (
     <>
         <div>
@@ -33,6 +50,11 @@ const Ratings = () => {
         </Navbar.Collapse>
       </Container>
     </Navbar>
+        </div>
+        <div>
+        <p>Current Number:{count}</p>
+        <button onClick={increaseHeight}>Increase Height</button>
+        <button onClick={decreaseHeight}>Decrease Height</button>
         </div>
     </>
   )
