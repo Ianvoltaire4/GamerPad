@@ -1,0 +1,28 @@
+/* CSS */
+#statsContainer {
+    display: flex;
+    flex-direction: row; /* Arrange buttons in a row */
+    align-items: center;
+    margin-bottom: 20px; /* Add margin to separate button groups */
+  }
+  
+  .statsBtn {
+    font-size: 16px;
+    font-weight: bold;
+    margin-right: 10px; /* Add some spacing between the text and buttons */
+  }
+  
+  .statsBtn {
+    margin-right: 5px; /* Add space between buttons */
+    padding: 5px 10px; /* Adjust button padding to make them smaller */
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+  }
+  
+  .button-group button:hover {
+    background-color: #0056b3;
+  }
+  

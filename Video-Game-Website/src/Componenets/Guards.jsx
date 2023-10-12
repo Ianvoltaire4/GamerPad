@@ -1,33 +1,24 @@
-import React, { useEffect, useState } from 'react'
-import Container from 'react-bootstrap/Container';
+import React, { useState } from 'react'
+import PointGuards from '../granchild-Components/PointGuards'
+import ShootingGuards from '../granchild-Components/ShootingGuards'
+import { RatingContext } from '../App'
+import { Link } from 'react-router-dom'
+import Home from './Home'
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import Container from 'react-bootstrap/Container';
 
 
-const Ratings = () => {
-    const [rating, setRating]=useState('')
-    const [count, setCount]=useState(0)
-
-    const increaseHeight=()=>{
-        if(count < 100) {
-            setCount(count + 1)
-        }else{
-            console.log('No more Skill points')
-        }  
-    };
-    const decreaseHeight=()=>{
-        if(count < 100) {
-            setCount(count - 1)
-        }
-    }
 
 
+const Guards = () => {
+  const rating=useState(RatingContext)
+  
   return (
     <>
-        <div>
-        <Navbar expand="lg" className="bg-body-tertiary">
+      <div className='NavBar'>
+      <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
         <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -50,9 +41,15 @@ const Ratings = () => {
         </Navbar.Collapse>
       </Container>
     </Navbar>
-        </div>
+      </div>
+
+      <div>
+        <p>Pick a postion:</p>
+        <Link to='/PointGuards'>PointGuards</Link>
+        <Link to='/ShootingGuards'>ShootingGuards</Link>
+      </div>
     </>
   )
 }
 
-export default Ratings
+export default Guards
