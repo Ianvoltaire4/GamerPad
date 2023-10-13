@@ -6,8 +6,14 @@ import Container from 'react-bootstrap/Container';
 import Home from '../Componenets/Home';
 import Card from 'react-bootstrap/Card'
 import { ListGroup } from 'react-bootstrap';
+import { createContext } from 'react';
+import ShootingGuards from './ShootingGuards';
+import '../Componenets/styles.css'
+import SmallForwads from './SmallForwards';
+import PowerForwads from './PowerForwads';
+import BigMan from './BigMan';
 
-
+export const APICall = createContext()
 
 const PointGuards = () => {
     const [displayState, setDisplayState]=useState(0)
@@ -19,18 +25,36 @@ const PointGuards = () => {
     const [age, setAge]=useState('')
     const [height, setHeight]=useState('')
     const [weight, setWeight]=useState('')
+    const [passing, setPassing]=useState(0)
+    const [ThreePointer, setThreePointer]=useState(0)
+    const [Midrange, setMidRange]=useState(0)
+    const [Steal, setSteal]=useState(0)
+    const [freeThrow, setFreeThrow]=useState(0)
+    const [ballHandle, setBallHandle]=useState(0)
+    const [InteriorD, setInteriorD]=useState(0)
+    const [PerimeterD, setPerimeterD]=useState(0)
+    const [Block, setBlock]=useState(0)
+    const [DefinsiveRebound, setDefinsiveRebound]=useState(0)
+    const [OffensiveRebound, setOffinsiveRebound]=useState(0)
+    const [closeShot, setCloseShot]=useState(0)
+    const [layup, setLayup]=useState(0)
+    const [Dunk, setDunk]=useState(0)
+    const [postControl, setPostContol]=useState(0)
+    const [Speed, setSpeed]=useState(0)
+    const [Acceleration, setAcceleration]=useState(0)
+    const [Str, setStr]=useState(0)
+    const [Vertical, setVertical]=useState(0)
+    const [Stamina, setStamina]=useState(0)
+    const [allData, setAllData] = useState([])
 
-  const increaseStats=()=>{
-    if(count >0) {
+
+
+  const increaseStats=(stateName, setStateFunction)=>{
+    setStateFunction(stateName + 1)
+    if(count > 0){
       setCount(count - 1)
     }
-  };
-  const decreaseStats=()=>{
-    if(count < 900) {
-      setCount(count + 1)
-    }
-  };
-
+  }
   // const handleReset=()=>{
 
   // }
@@ -46,6 +70,7 @@ const PointGuards = () => {
     let response =await fetch('https://randomuser.me/api/?gender=male');
     let data= await response.json();
     console.log(data);
+    setAllData(data)
     setFaces(data.results[0].picture.large);
   };
 
@@ -64,34 +89,34 @@ const PointGuards = () => {
 
   return (
     <>
-    <div>
-      {/* <h1>{face}</h1> */}
     <div className='NavBar'>
+    <div hidden={true}>
+          <APICall.Provider value={allData}>
+            <ShootingGuards />
+            <SmallForwads />
+            <PowerForwads />
+            <BigMan />
+          </APICall.Provider>
+        </div>
       <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
-        <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link href="Home">Home</Nav.Link>
-            <Nav.Link href="News">News</Nav.Link>
             <NavDropdown title="Dropdown" id="basic-nav-dropdown">
               <NavDropdown.Item href="Guards">Guards</NavDropdown.Item>
               <NavDropdown.Item href="Forwards">
                 Forwards
               </NavDropdown.Item>
               <NavDropdown.Item href="#Centers">Centers</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">
-                Separated link
-              </NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>
       </Container>
     </Navbar>
     </div>
-    </div>
+    <div className='Forms'>
     <form onSubmit={handleSubmit}>
       <p>Create a Point Guard.</p>
       <input type='text' id='Name'value={name} placeholder='name' required onChange={(e)=>setName(e.target.value)}></input>
@@ -100,8 +125,7 @@ const PointGuards = () => {
       <input type='number' placeholder='Weight in lbs'id='Weight' value={weight}min={125} max={359} required onChange={(e)=>setWeight(e.target.value)}></input><br></br>
       <button type='submit'>Submit</button>
     </form>
-    {/* <button onSubmit={handleSubmit} type='submit'>Submit</button> */}
-
+    </div>
     </>
   )
 } else if(displayState===1) {
@@ -118,105 +142,105 @@ const PointGuards = () => {
 
         <div className='statsBtn'>
           <p>Close Shot</p>
-        <input onClick={increaseStats} value={closeShot} onChange={(e)=>(e.target.value)}type='button' min={0} max={99} placeholder='3pt Shot'/>
+        <input onClick={()=>increaseStats(closeShot, setCloseShot)} value={closeShot} onChange={(e)=>(e.target.value)} type='button' min={0} max={99} />
 
         </div>
 
         <div className='statsBtn'>
           <p>Driving Layup</p>
-        <input onClick={increaseStats} id='Layup' value={layup} onChange={(e)=>(e.target.value)} type='button' min={0} max={99} placeholder='3pt Shot'/>
+          <input onClick={()=>increaseStats(layup, setLayup)} value={layup} onChange={(e)=>(e.target.value)} type='button' min={0} max={99} />
         </div>
 
         <div className='statsBtn'>
           <p>Driving Dunk</p>
-        <input onClick={increaseStats} value={Dunk} onChange={(e)=>(e.target.value)}type='button' min={0} max={99} placeholder='3pt Shot'/>
+          <input onClick={()=>increaseStats(Dunk, setDunk)} value={Dunk} onChange={(e)=>(e.target.value)} type='button' min={0} max={99} />
         </div>
 
         <div className='statsBtn'>
           <p>Post Control</p>
-        <input onClick={increaseStats} value={postControl} onChange={(e)=>(e.target.value)}type='button' min={0} max={99} placeholder='3pt Shot'/>
+          <input onClick={()=>increaseStats(postControl, setPostContol)} value={postControl} onChange={(e)=>(e.target.value)} type='button' min={0} max={99} />
 
         </div>
 
         <div className='statsBtn'>
           <p>Midrange</p>
-        <input onClick={increaseStats} value={Midrange} onChange={(e)=>(e.target.value)}type='button' min={0} max={99} placeholder='3pt Shot'/>
+          <input onClick={()=>increaseStats(Midrange, setMidRange)} value={Midrange} onChange={(e)=>(e.target.value)} type='button' min={0} max={99} />
 
         </div>
 
         <div className='statsBtn'>
           <p>3pt</p>
-        <input onClick={increaseStats} value={ThreePointer} onChange={(e)=>(e.target.value)}type='button' min={0} max={99} placeholder='3pt Shot'/>
+          <input onClick={()=>increaseStats(ThreePointer, setThreePointer)} value={ThreePointer} onChange={(e)=>(e.target.value)} type='button' min={0} max={99} />
         </div>
 
         <div className='statsBtn'>
           <p>Free Throw</p>
-        <input onClick={increaseStats} value={freeThrow} onChange={(e)=>(e.target.value)}type='button' min={0} max={99} placeholder='3pt Shot'/>
+          <input onClick={()=>increaseStats(freeThrow, setFreeThrow)} value={freeThrow} onChange={(e)=>(e.target.value)} type='button' min={0} max={99} />
         </div>
 
         <div className='statsBtn'>
           <p>Passing</p>
-        <input onClick={increaseStats} value={passing} onChange={(e)=>(e.target.value)}type='button' min={0} max={99} placeholder='3pt Shot'/>
+          <input onClick={()=>increaseStats(passing, setPassing)} value={passing} onChange={(e)=>(e.target.value)} type='button' min={0} max={99} />
         </div>
 
         <div className='statsBtn'>
           <p>Ball Handle</p>
-        <input onClick={increaseStats} value={ballHandle} onChange={(e)=>(e.target.value)}type='button' min={0} max={99} placeholder='3pt Shot'/>
+          <input onClick={()=>increaseStats(ballHandle, setBallHandle)} value={ballHandle} onChange={(e)=>(e.target.value)} type='button' min={0} max={99} />
         </div>
 
         <div className='statsBtn'>
           <p>Steal</p>
-        <input onClick={increaseStats} value={Steal} onChange={(e)=>(e.target.value)}type='button' min={0} max={99} placeholder='3pt Shot'/>
+          <input onClick={()=>increaseStats(Steal, setSteal)} value={Steal} onChange={(e)=>(e.target.value)} type='button' min={0} max={99} />
         </div>
 
         <div className='statsBtn'>
           <p>Block</p>
-        <input onClick={increaseStats} value={Block} onChange={(e)=>(e.target.value)}type='button' min={0} max={99} placeholder='3pt Shot'/>
+          <input onClick={()=>increaseStats(Block, setblock)} value={Block} onChange={(e)=>(e.target.value)} type='button' min={0} max={99} />
         </div>
 
         <div className='statsBtn'>
           <p>Definsive Rebound</p>
-        <input onClick={increaseStats} value={DefinsiveRebound} onChange={(e)=>(e.target.value)}type='button' min={0} max={99} placeholder='3pt Shot'/>
+          <input onClick={()=>increaseStats(DefinsiveRebound, setDefinsiveRebound)} value={DefinsiveRebound} onChange={(e)=>(e.target.value)} type='button' min={0} max={99} />
         </div>
 
         <div className='statsBtn'>
           <p>Offensive Rebound</p>
-        <input onClick={increaseStats} value={OffensiveRebound} onChange={(e)=>(e.target.value)}type='button' min={0} max={99} placeholder='3pt Shot'/>
+          <input onClick={()=>increaseStats(OffensiveRebound, setOffinsiveRebound)} value={OffensiveRebound} onChange={(e)=>(e.target.value)} type='button' min={0} max={99} />
         </div>
 
         <div className='statsBtn'>
           <p>Interior D</p>
-        <input onClick={increaseStats} value={InteriorD} onChange={(e)=>(e.target.value)}type='button' min={0} max={99} placeholder='3pt Shot'/>
+          <input onClick={()=>increaseStats(InteriorD, setInteriorD)} value={InteriorD} onChange={(e)=>(e.target.value)} type='button' min={0} max={99} />
         </div>
 
         <div className='statsBtn'>
           <p>Perimeter D</p>
-        <input onClick={increaseStats} value={PerimeterD} onChange={(e)=>(e.target.value)}type='button' min={0} max={99} placeholder='3pt Shot'/>
+          <input onClick={()=>increaseStats(PerimeterD, setPerimeterD)} value={PerimeterD} onChange={(e)=>(e.target.value)} type='button' min={0} max={99} />
         </div>
 
         <div className='statsBtn'>
           <p>Speed</p>
-        <input onClick={increaseStats} value={Speed} onChange={(e)=>(e.target.value)}type='button' min={0} max={99} placeholder='3pt Shot'/>
+          <input onClick={()=>increaseStats(Speed, setSpeed)} value={Speed} onChange={(e)=>(e.target.value)} type='button' min={0} max={99} />
         </div>
 
         <div className='statsBtn'>
           <p>Acceleration</p>
-        <input onClick={increaseStats} value={Acceleration} onChange={(e)=>(e.target.value)}type='button' min={0} max={99} placeholder='3pt Shot'/>
+          <input onClick={()=>increaseStats(Acceleration, setAcceleration)} value={Acceleration} onChange={(e)=>(e.target.value)} type='button' min={0} max={99} />
         </div>
 
         <div className='statsBtn'>
           <p>Str</p>
-        <input onClick={increaseStats} value={Str} onChange={(e)=>(e.target.value)}type='button' min={0} max={99} placeholder='3pt Shot'/>
+          <input onClick={()=>increaseStats(Str, setStr)} value={Str} onChange={(e)=>(e.target.value)} type='button' min={0} max={99} />
         </div>
 
         <div className='statsBtn'>
           <p>Vertical</p>
-        <input onClick={increaseStats} value={Vertical} onChange={(e)=>(e.target.value)}type='button' min={0} max={99} placeholder='3pt Shot'/>
+          <input onClick={()=>increaseStats(Vertical, setVertical)} value={Vertical} onChange={(e)=>(e.target.value)} type='button' min={0} max={99} />
         </div>
 
         <div className='statsBtn'>
           <p>Stamina</p>
-        <input onClick={increaseStats} value={Stamina} onChange={(e)=>(e.target.value)}type='button' min={0} max={99} placeholder='3pt Shot'/>
+          <input onClick={()=>increaseStats(Stamina, setStamina)} value={Stamina} onChange={(e)=>(e.target.value)} type='button' min={0} max={99} />
         </div>
         <button type='submit'>Submit</button>
     </div>
@@ -228,6 +252,7 @@ const PointGuards = () => {
     return(
       <>
       <div>
+        
       <div id='card'>
 {cardDis ? (<Card style={{ width: '18rem' }}>
   {/* The cardDis is making sure the card doesnt render to the screen until the handle submit is run by pressing the submit button. */}
@@ -239,11 +264,16 @@ const PointGuards = () => {
         </Card.Text>
       </Card.Body>
       <ListGroup>
-      <ListGroup.Item>Age:{age}</ListGroup.Item>
-      <ListGroup.Item>Height:{height}</ListGroup.Item>
-      <ListGroup.Item>Weight:{weight}</ListGroup.Item>
-      <ListGroup.Item>Weight:{weight}</ListGroup.Item>
-      <ListGroup.Item>Weight:{weight}</ListGroup.Item>
+      <ListGroup.Item>Age: {age}</ListGroup.Item>
+      <ListGroup.Item>Height: {height} in</ListGroup.Item>
+      <ListGroup.Item>Weight: {weight}</ListGroup.Item>
+      <ListGroup.Item>Dunk: {Dunk}</ListGroup.Item>
+      <ListGroup.Item>Layup: {layup}</ListGroup.Item>
+      <ListGroup.Item>Close Shot: {closeShot}</ListGroup.Item>
+      <ListGroup.Item>Midrange: {Midrange}</ListGroup.Item>
+      <ListGroup.Item>Three Pointer: {ThreePointer}</ListGroup.Item>
+      <ListGroup.Item>Passing: {passing}</ListGroup.Item>
+      <ListGroup.Item>Ball Handle: {ballHandle}</ListGroup.Item>
       </ListGroup>
     </Card>
           ) : (

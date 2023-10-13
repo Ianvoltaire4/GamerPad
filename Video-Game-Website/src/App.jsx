@@ -7,6 +7,11 @@ import Forwards from './Componenets/Forwards';
 import Centers from './Componenets/Centers';
 import { Routes, Route, Link } from 'react-router-dom'
 import PointGuards from './granchild-Components/PointGuards';
+import ShootingGuards from './granchild-Components/ShootingGuards';
+import SmallForwads from './granchild-Components/SmallForwards';
+import PowerForwads from './granchild-Components/PowerForwads';
+import BigMan from './granchild-Components/BigMan';
+
 
 
 export const RatingContext=createContext();
@@ -24,6 +29,10 @@ function App() {
           <Route path='/Forwards' element={<Forwards />} />
           <Route path='/Centers' element={<Centers />} />
           <Route path='/PointGuards' element={<PointGuards />} />
+          <Route path='/ShootingGuards' element={<ShootingGuards />} />
+          <Route path='/SmallForwards' element={<SmallForwads />} />
+          <Route path='/PowerForwards' element={<PowerForwads />} />
+          <Route path='/BigMan' element={<BigMan />} />
         </Routes>
       </RatingContext.Provider>
     </>
